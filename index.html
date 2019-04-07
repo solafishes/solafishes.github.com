@@ -116,13 +116,16 @@
 <li><code>hexo n &quot;new post&quot;</code>或<code>hexo new &quot;new post&quot;</code> 新建名为”new post”的文章。</li>
 <li><code>hexo g</code>或<code>hexo generate</code>生成博客。</li>
 <li><code>hexo s</code>或<code>hexo server</code>启动服务本地预览，默认在浏览器中打开<code>localhost:4000</code>即可进行预览。使用<code>-p</code>选项设置端口，<code>-i</code>自定义IP。</li>
-<li><code>hexo d</code>或<code>hexo deploy</code>部署博客。<h1 id="推送网站"><a href="#推送网站" class="headerlink" title="推送网站"></a>推送网站</h1><h1 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h1><h1 id="初识MarkDown语法"><a href="#初识MarkDown语法" class="headerlink" title="初识MarkDown语法"></a>初识MarkDown语法</h1><h1 id="发布文章"><a href="#发布文章" class="headerlink" title="发布文章"></a>发布文章</h1><h1 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h1><h1 id="个性化设置"><a href="#个性化设置" class="headerlink" title="个性化设置"></a>个性化设置</h1></li>
+<li><code>hexo d</code>或<code>hexo deploy</code>部署博客。</li>
 </ul>
-
+<h1 id="推送网站"><a href="#推送网站" class="headerlink" title="推送网站"></a>推送网站</h1><p>为了把网站推送到GitHub，需要修改blog目录下的<code>_config.yml</code>文件。打开该文件在最后部分添加如下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https://github.com/solafishes/solafishes.github.com.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure></p>
+<p>使用<code>hexo d</code>就会将你的页面上传到GitHub上的对应仓库里。执行<code>hexo d</code>报错的话使用<code>npm install hexo-deployer-git --save</code>（Git部署插件）应该就能解决。</p>
+<h1 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h1><p>Hexo默认的主题是这样婶的。</p>
+<h1 id="初识MarkDown语法"><a href="#初识MarkDown语法" class="headerlink" title="初识MarkDown语法"></a>初识MarkDown语法</h1><h1 id="发布文章"><a href="#发布文章" class="headerlink" title="发布文章"></a>发布文章</h1><h1 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h1><h1 id="个性化设置"><a href="#个性化设置" class="headerlink" title="个性化设置"></a>个性化设置</h1>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/06/About-Hexo/" data-id="cju70qldl0000uis6yep0y3rd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/06/About-Hexo/" data-id="cju712x3y0000xgs6uqy35195" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tutorial/">tutorial</a></li></ul>
@@ -169,7 +172,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/06/hello-world/" data-id="cju70qldq0001uis6kwtpd0od" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/06/hello-world/" data-id="cju712x440001xgs69zrlgq18" class="article-share-link">Share</a>
       
       
     </footer>
