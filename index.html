@@ -102,14 +102,27 @@
 <p>这里的yourname是GitHub用户名，youremail是GitHub的邮箱。可以使用如下命令检查是否加入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config user.name</span><br><span class="line">git config user.email</span><br></pre></td></tr></table></figure></p>
 <p>接下来创建SSH Key：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"youremail"</span></span><br></pre></td></tr></table></figure></p>
 <p>不需要设置密码，直接按回车，直到生成完成。生成的key可以在<code>~/.ssh/id)rsa.pub</code>找到，使用<code>pbcopy &lt; ~/.ssh/id_rsa.pub</code>将key全部复制到剪切板。</p>
-<p>在GitHub右上角进入Settings,新建new SSH Key。Title为标题，任意填即可，将刚刚复制的id_rsa.pub内容粘贴进去，最后点击Add SSH key。<br>在Git Bash中检测GitHub公钥设置是否成功，输入 <code>ssh git@github.com</code>。这里之所以设置GitHub密钥原因是，通过非对称加密的公钥与私钥来完成加密，公钥放置在GitHub上，私钥放置在自己的电脑里。GitHub要求每次推送代码都是合法用户，所以每次推送都需要输入账号密码验证推送用户是否是合法用户，为了省去每次输入密码的步骤，采用了ssh，当你推送的时候，git就会匹配你的私钥跟GitHub上面的公钥是否是配对的，若是匹配就认为你是合法用户，则允许推送。这样可以保证每次的推送都是正确合法的。 </p>
-<h1 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h1><p>Hexo基于Node.js，安装 Node.js 的最佳方式是使用<a href="https://github.com/creationix/nvm" target="_blank" rel="noopener">nvm</a>。<br>cURL:<br><code>$ curl https://raw.github.com/creationix/nvm/v0.33.11/install.sh | sh</code><br>Wget:<br><code>$ wget -qO- https://raw.github.com/creationix/nvm/v0.33.11/install.sh | sh</code><br>安装完成后，重启终端并执行下列命令即可安装 Node.js。<br><code>$ nvm install stable</code><br>或者您也可以下载<a href="http://nodejs.org/" target="_blank" rel="noopener">安装程序</a>来安装。安装后，检测Node.js是否安装成功，在命令行中输入<code>node -v</code>。检测npm是否安装成功，在命令行中输入<code>npm -v</code>。到这了，安装Hexo的环境已经全部搭建完成。</p>
+<p>在GitHub右上角进入Settings,新建new SSH Key。Title为标题，任意填即可，将刚刚复制的id_rsa.pub内容粘贴进去，最后点击Add SSH key。</p>
+<p>在Git Bash中检测GitHub公钥设置是否成功，输入 <code>ssh git@github.com</code>。这里之所以设置GitHub密钥原因是，通过非对称加密的公钥与私钥来完成加密，公钥放置在GitHub上，私钥放置在自己的电脑里。GitHub要求每次推送代码都是合法用户，所以每次推送都需要输入账号密码验证推送用户是否是合法用户，为了省去每次输入密码的步骤，采用了ssh，当你推送的时候，git就会匹配你的私钥跟GitHub上面的公钥是否是配对的，若是匹配就认为你是合法用户，则允许推送。这样可以保证每次的推送都是正确合法的。 </p>
+<h1 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h1><p>Hexo基于Node.js，安装 Node.js 的最佳方式是使用<a href="https://github.com/creationix/nvm" target="_blank" rel="noopener">nvm</a>。</p>
+<p>cURL:<br><code>$ curl https://raw.github.com/creationix/nvm/v0.33.11/install.sh | sh</code><br>Wget:<br><code>$ wget -qO- https://raw.github.com/creationix/nvm/v0.33.11/install.sh | sh</code></p>
+<p>安装完成后，重启终端并执行下列命令即可安装 Node.js。<br><code>$ nvm install stable</code></p>
+<p>或者您也可以下载<a href="http://nodejs.org/" target="_blank" rel="noopener">安装程序</a>来安装。安装后，检测Node.js是否安装成功，在命令行中输入<code>node -v</code>。检测npm是否安装成功，在命令行中输入<code>npm -v</code>。到这了，安装Hexo的环境已经全部搭建完成。</p>
 <h1 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h1><p>Hexo是一款基于Node.js的静态博客框架，依赖少易于安装使用，可以方便的生成静态网页托管在GitHub和Coding上，是搭建博客的首选框架。大家可以进入<a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">hexo官网</a>进行详细查看，因为Hexo的创建者是台湾人，对中文的支持很友好，可以选择中文进行查看。</p>
-<h1 id="推送网站"><a href="#推送网站" class="headerlink" title="推送网站"></a>推送网站</h1><h1 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h1><h1 id="初识MarkDown语法"><a href="#初识MarkDown语法" class="headerlink" title="初识MarkDown语法"></a>初识MarkDown语法</h1><h1 id="发布文章"><a href="#发布文章" class="headerlink" title="发布文章"></a>发布文章</h1><h1 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h1><h1 id="个性化设置"><a href="#个性化设置" class="headerlink" title="个性化设置"></a>个性化设置</h1>
+<p>使用npm命令安装Hexo，输入：<code>npm install -g hexo-cli</code>。然后在本地创建一个博客文件夹，然后打开Terminal，cd到该文件夹。初始化Hexo:<code>hexo init ./</code>，然后使用<code>npm install</code>。</p>
+<p>新建完成后，文件夹目录下有如下内容(详细内容<a href="https://hexo.io/zh-cn/docs/setup" target="_blank" rel="noopener">参考</a>)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+-- _config.yml //博客的配置文件</span><br><span class="line">+-- package.json //应用程序的信息</span><br><span class="line">+-- scaffolds //生成文章所用的一些模版</span><br><span class="line">+-- node_modules //依赖包</span><br><span class="line">+-- public //存放生成的页面 </span><br><span class="line">+-- source //用来存放文章</span><br><span class="line">|   +-- _posts</span><br><span class="line">|   +-- _drafts</span><br><span class="line">+-- themes //博客的主题</span><br></pre></td></tr></table></figure></p>
+<p>Hexo的一些基本命令包括：</p>
+<ul>
+<li><code>hexo n &quot;new post&quot;</code>或<code>hexo new &quot;new post&quot;</code> 新建名为”new post”的文章。</li>
+<li><code>hexo g</code>或<code>hexo generate</code>生成博客。</li>
+<li><code>hexo s</code>或<code>hexo server</code>启动服务本地预览，默认在浏览器中打开<code>localhost:4000</code>即可进行预览。使用<code>-p</code>选项设置端口，<code>-i</code>自定义IP。</li>
+<li><code>hexo d</code>或<code>hexo deploy</code>部署博客。<h1 id="推送网站"><a href="#推送网站" class="headerlink" title="推送网站"></a>推送网站</h1><h1 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h1><h1 id="初识MarkDown语法"><a href="#初识MarkDown语法" class="headerlink" title="初识MarkDown语法"></a>初识MarkDown语法</h1><h1 id="发布文章"><a href="#发布文章" class="headerlink" title="发布文章"></a>发布文章</h1><h1 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h1><h1 id="个性化设置"><a href="#个性化设置" class="headerlink" title="个性化设置"></a>个性化设置</h1></li>
+</ul>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/06/About-Hexo/" data-id="cju5l3gfe0000zg85bz6k646x" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/06/About-Hexo/" data-id="cju70qldl0000uis6yep0y3rd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tutorial/">tutorial</a></li></ul>
@@ -156,7 +169,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/06/hello-world/" data-id="cju5l3gfj0001zg85r7onqxa1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/06/hello-world/" data-id="cju70qldq0001uis6kwtpd0od" class="article-share-link">Share</a>
       
       
     </footer>
