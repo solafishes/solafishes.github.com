@@ -1,0 +1,21 @@
+Arduino
+1. 闪光LED和简单由软件控制的LED电路
+资源：
+	（1）GSWA第四章内容,和第五章前几个例子（电扇之前）
+	（2）https://www.jianshu.com/p/721dbb5e9eee
+	（3）https://learn.sparkfun.com/tutorials/how-to-use-a-breadboard
+	（4）http://www.taichi-maker.com/homepage/reference-index/arduino-code-reference/input_pullup/
+	（5）https://www.yiboard.com/thread-590-1-1.html
+	（6）/Users/solafishes/Desktop/Arduino/elecabsbegi.pdf
+	（7）https://hackaday.com/2015/12/09/embed-with-elliot-debounce-your-noisy-buttons-part-i/
+
+2. Transistor相关内容
+资源：
+	（1）从GSWA第五章的电扇案例开始；
+	（2）https://www.bilibili.com/video/av9735297/?spm_id_from=333.788.videocard.0 这个视频比较直观介绍了晶体管的基本原理
+	（3）https://blog.csdn.net/Aabcd987/article/details/79041591 中文介绍
+	（4）https://www.instructables.com/id/Logic-Gates-with-NPN-transistors/
+
+3. Processing语言
+
+4. 第7章的案例
