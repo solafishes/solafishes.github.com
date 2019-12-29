@@ -369,7 +369,7 @@
                 
               
 
-              <time title="Created: 2019-12-29 19:31:39 / Modified: 19:57:04" itemprop="dateCreated datePublished" datetime="2019-12-29T19:31:39+08:00">2019-12-29</time>
+              <time title="Created: 2019-12-29 19:31:39 / Modified: 20:11:31" itemprop="dateCreated datePublished" datetime="2019-12-29T19:31:39+08:00">2019-12-29</time>
             
 
             
@@ -529,11 +529,29 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-12-29 19:55:50" itemprop="dateModified" datetime="2019-12-29T19:55:50+08:00">2019-12-29</time>
+                <time title="Modified: 2019-12-29 20:35:14" itemprop="dateModified" datetime="2019-12-29T20:35:14+08:00">2019-12-29</time>
               
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Hexo使用/" itemprop="url" rel="index"><span itemprop="name">Hexo使用</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -599,6 +617,11 @@
 <p>使用<code>hexo d</code>就会将你的页面上传到GitHub上的对应仓库里。执行<code>hexo d</code>报错的话使用<code>npm install hexo-deployer-git --save</code>（Git部署插件）应该就能解决。</p>
 <h1 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h1><p>Hexo本来不支持markdown语法插入图片，需要下载<a href="https://github.com/7ym0n/hexo-asset-image" target="_blank" rel="noopener">hexo-asset-image</a>: <code>npm install hexo-asset-image --save</code>。<br>配置_config.yml里面的post_asset_folder:false这个选项设置为true，执行命令<code>$ hexo new post_name</code>，在<code>source/_posts</code>中会生成文章<code>post_name.md</code>和同名文件夹<code>post_name</code>。将图片资源放在<code>post_name</code>中，文章就可以使用相对路径引用图片资源了。</p>
 <p>另外还可以通过标签语法<code></code>插入图片，但是在安装hexo-asset-image之后，貌似会出现问题。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/2019/04/06/About-Hexo/default.jpg" alt="默认主题"&gt;<span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"/2019/04/06/About-Hexo/2019/04/06/About-Hexo/default.jpg"</span> <span class="attr">title</span>=<span class="string">"This is an image"</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="关于tags和categories"><a href="#关于tags和categories" class="headerlink" title="关于tags和categories"></a>关于tags和categories</h1><p>由于使用了Next主题，默认tags和categories页面在目录中是关闭的。按如下步骤设置。</p>
+<h2 id="设置主题下的-config-yaml"><a href="#设置主题下的-config-yaml" class="headerlink" title="设置主题下的_config.yaml"></a>设置主题下的<code>_config.yaml</code></h2><p>打开<code>themes/next/_config.yaml</code>，在目录<code>menu</code>设置部分，将注释掉的<code>tags</code>和<code>categories</code>恢复：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: / || home</span><br><span class="line">  #about: /about/ || user</span><br><span class="line">  tags: /tags/ || tags</span><br><span class="line">  categories: /categories/ || th</span><br><span class="line">  archives: /archives/ || archive</span><br><span class="line">  #schedule: /schedule/ || calendar</span><br><span class="line">  #sitemap: /sitemap.xml || sitemap</span><br><span class="line">  #commonweal: /404/ || heartbeat</span><br></pre></td></tr></table></figure></p>
+<h2 id="创建页面"><a href="#创建页面" class="headerlink" title="创建页面"></a>创建页面</h2><p>分别执行<code>hexo new page tags</code>和<code>hexo new page categories</code>，这将在<code>source/</code>目录下生成<code>tags/</code>和<code>categories/</code>。打开这两个文件夹下的<code>index.md</code>并添加<code>type: tags</code>和<code>type: categories</code>这行，并注意冒号后面的空格。</p>
+<h2 id="文档处理"><a href="#文档处理" class="headerlink" title="文档处理"></a>文档处理</h2><p>在文档头部设置分类信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Lego+BrickPi机器人课程学习</span><br><span class="line">date: 2019-12-29 19:31:39</span><br><span class="line">tags: </span><br><span class="line">- BrickPi</span><br><span class="line">- Raspberry Pi</span><br><span class="line">categories:</span><br><span class="line">- 机器人相关教程</span><br><span class="line">---</span><br></pre></td></tr></table></figure></p>
+<p>重新生成博客并部署便</p>
 <h1 id="尾言"><a href="#尾言" class="headerlink" title="尾言"></a>尾言</h1><p>本文介绍了使用Hexo建博客的基本内容，涉及到主题的修改和其他个性化设置，需要的时候会在后续文章介绍。</p>
 
           
@@ -840,6 +863,23 @@
                 </div>
               
 
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
               
 
               
