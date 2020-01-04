@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="从这个教程开始，就要开始介绍机器人的搭建和编程了，将混合参考Robotics 333和Dexster官网的教程进行。 机器人的搭建上图展示了Brick Pi的端口图，正如EV3拥有4个传感器接口和4个动作输出单元接口，我们的BrickPi也有4个传感器接口：S1-S4（S for Sensor），以及四个输出接口M1-M4 (M for Motor)。传感器和动作机构的连接方式和EV3相同。 Br">
+<meta name="keywords" content="BrickPi,Raspberry Pi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lego+BrickPi机器人课程学习(二)：第一个机器人">
+<meta property="og:url" content="http://yoursite.com/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/index.html">
+<meta property="og:site_name" content="Solafishes;Robotics;Notes">
+<meta property="og:description" content="从这个教程开始，就要开始介绍机器人的搭建和编程了，将混合参考Robotics 333和Dexster官网的教程进行。 机器人的搭建上图展示了Brick Pi的端口图，正如EV3拥有4个传感器接口和4个动作输出单元接口，我们的BrickPi也有4个传感器接口：S1-S4（S for Sensor），以及四个输出接口M1-M4 (M for Motor)。传感器和动作机构的连接方式和EV3相同。 Br">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/port_diagram.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/Lego_beam.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/battery_case.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/case_support.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/support.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/front_support.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/original_turnning_wheel.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/final.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/simple_awsd.gif">
+<meta property="og:updated_time" content="2020-01-04T15:05:07.994Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lego+BrickPi机器人课程学习(二)：第一个机器人">
+<meta name="twitter:description" content="从这个教程开始，就要开始介绍机器人的搭建和编程了，将混合参考Robotics 333和Dexster官网的教程进行。 机器人的搭建上图展示了Brick Pi的端口图，正如EV3拥有4个传感器接口和4个动作输出单元接口，我们的BrickPi也有4个传感器接口：S1-S4（S for Sensor），以及四个输出接口M1-M4 (M for Motor)。传感器和动作机构的连接方式和EV3相同。 Br">
+<meta name="twitter:image" content="http://yoursite.com/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/port_diagram.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Lego+BrickPi机器人课程学习(二)：第一个机器人 | Solafishes;Robotics;Notes</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Solafishes;Robotics;Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">ALL_in_One（Lego, Arduino, GUI, Etc..）</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="solafishes">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Solafishes;Robotics;Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Lego+BrickPi机器人课程学习(二)：第一个机器人
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-01-04 13:39:37 / Modified: 23:05:07" itemprop="dateCreated datePublished" datetime="2020-01-04T13:39:37+08:00">2020-01-04</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器人相关教程/" itemprop="url" rel="index"><span itemprop="name">机器人相关教程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>从这个教程开始，就要开始介绍机器人的搭建和编程了，将混合参考Robotics 333和Dexster官网的教程进行。</p>
+<h1 id="机器人的搭建"><a href="#机器人的搭建" class="headerlink" title="机器人的搭建"></a>机器人的搭建</h1><p><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/port_diagram.png" alt="Brick Pi端口图"><br>上图展示了Brick Pi的端口图，正如EV3拥有4个传感器接口和4个动作输出单元接口，我们的BrickPi也有4个传感器接口：S1-S4（S for Sensor），以及四个输出接口M1-M4 (M for Motor)。传感器和动作机构的连接方式和EV3相同。</p>
+<p>Brick Pi的外壳可以连接乐高Beam组件，连接过程中需要借助peg组件，注意为了组装的便捷，先一次一个将peg放置到位，再连接beam，如下图所示。</p>
+<p><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/Lego_beam.jpg" alt="外壳连接Beam"></p>
+<p>对于第一个机器人，我们将参考Robotics 333<a href="http://www.doc.ic.ac.uk/~ajd/Robotics/RoboticsResources/questions2.pdf" target="_blank" rel="noopener">第二堂习题课</a>的课程要求，而那里面提到将使用Dexster官网的<a href="https://www.dexterindustries.com/BrickPi/brickpi-tutorials-documentation/projects/simplebot/" target="_blank" rel="noopener">SimpleBot</a>案例教学进行。我们接下来将进行SimpleBot的组装，这是一个最简单的双轮差速机器人。</p>
+<p>我对SimpleBot进行了如下升级：第一，将控制器外壳比较舒服地放到了底座上，并在上面制作了简易的电池仓；第二，考虑到带电池整体的重量比较大，将转向轮进行了加大，转向轮的设计参考了The Lego Mindstorms EV3 Discovery Book一书。以下是部分大图。</p>
+<p><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/battery_case.jpg" alt="电池支撑盒"><br><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/case_support.jpg" alt="控制器外壳支撑"><br><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/support.jpg" alt="底部加固"><br><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/front_support.jpg" alt="转向加固"><br><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/original_turnning_wheel.jpg" alt="原始转向轮设计"><br><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/final.jpg" alt="完成品"></p>
+<h1 id="机器人编程"><a href="#机器人编程" class="headerlink" title="机器人编程"></a>机器人编程</h1><p>SimpleBot是BrickPi+的案例，这里面给出的<code>simplebot_psp.py</code>，<code>simplebot_simple.py</code>和<code>simplebot_speed.py</code>等三个案例都是用之前版本的代码编写的，和BrickPi 3的代码相差很多。BrickPi 3的文档比较分散不完整，我们参考[BrickPi 3的API]源代码(<a href="https://github.com/DexterInd/BrickPi3)重新编写这三个文件并进行测试。" target="_blank" rel="noopener">https://github.com/DexterInd/BrickPi3)重新编写这三个文件并进行测试。</a></p>
+<p>注意，Raspbian for Robots已经将BrickPi3安装好了，直接在Python中就可以`import brickpi3。如果用了其他的操作系统，则需要如下进行安装：</p>
+<figure class="highlight plain"><figcaption><span>curl</span><a href="https://raw.githubusercontent.com/DexterInd/Raspbian_For_Robots/master/upd_script/fetch_brickpi3.sh" target="_blank" rel="noopener">| bash```</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">实际编程的流程是这样的：（1）在Mac上进行编程工作；（2）通过scp命令将程序传到Raspberry Pi的指定位置；（3）通过ssh或vnc运行程序，实现机器人的程序控制。</span><br><span class="line"></span><br><span class="line">在实际运行的时候，我发现了Brick Pi面临的一个电压问题。一开始我使用了Battery Pack，将8节1.2V的AA电池串联进行供电，但是发现这样比较费电，1900毫安的电池1-2个小时就跪了，后来我自作聪明尝试用5V的充电宝进行供电，发现也是可以带动的，就这么用了。然而，在跑程序的时候，我发现电机根本没有响应，但是另一方面却能读到电机手动转动的位置数据。经过一番寻觅，最终发现就是充电宝的锅：根据[这份说明](https://www.dexterindustries.com/BrickPi/brickpi3-technical-design-details/)，Brick Pi上闪烁的黄灯表明了电压的水平：</span><br><span class="line"></span><br><span class="line">1. 每秒1次说明输入电压在7.2V以上；</span><br><span class="line">2. 每秒2次说明输入电压在7.2V以下；</span><br><span class="line">3. 每秒4次说明输入电压低于6.5V或Raspberry的电压低于4.85V；</span><br><span class="line">4. 快速闪烁说明Brick Pi和Raspberry Pi的连接有问题。</span><br><span class="line"></span><br><span class="line">设备要求的名义电压是9V，推荐电压是7.2-10V，虽然5V的电压可以驱动Raspberry，但是乐高的电机要求输入电压要达到9V。使用充电宝就是3.的情形，这时电机被自动disabled。所以尽管耗电快，还是必须使用之前的Battery Pack。</span><br><span class="line"></span><br><span class="line">## 用键盘输入控制的SimpleBot</span><br><span class="line">直接给出代码：</span><br></pre></td></tr></table></figure>
+<p>##################################################                                                              </p>
+<h1 id="Program-Name-simple-first-awsd"><a href="#Program-Name-simple-first-awsd" class="headerlink" title="Program Name: simple_first_awsd"></a>Program Name: simple_first_awsd</h1><h1 id><a href="#" class="headerlink" title="================================"></a>================================</h1><h1 id="This-code-is-for-moving-the-simplebot-with-awsd"><a href="#This-code-is-for-moving-the-simplebot-with-awsd" class="headerlink" title="This code is for moving the simplebot with awsd"></a>This code is for moving the simplebot with awsd</h1><h1 id="created-to-test-the-first-robot-ever-built"><a href="#created-to-test-the-first-robot-ever-built" class="headerlink" title="created to test the first robot ever built"></a>created to test the first robot ever built</h1><h1 id="History"><a href="#History" class="headerlink" title="History"></a>History</h1><h1 id="————————————————"><a href="#————————————————" class="headerlink" title="————————————————"></a>————————————————</h1><h1 id="Author-Date-Comments"><a href="#Author-Date-Comments" class="headerlink" title="Author     Date      Comments"></a>Author     Date      Comments</h1><h1 id="Siyu-20-01-04-Initial-Authoring"><a href="#Siyu-20-01-04-Initial-Authoring" class="headerlink" title="Siyu       20/01/04  Initial Authoring"></a>Siyu       20/01/04  Initial Authoring</h1><h1 id="-1"><a href="#-1" class="headerlink" title=" "></a> </h1><h1 id="-2"><a href="#-2" class="headerlink" title=" "></a> </h1><p>#</p>
+<p>##################################################</p>
+<p>‘’’<br>Hardware:<br>        Left Wheel - Connect EV3 Large Motor to MC<br>        Right Wheel - Connect EV3 Large Motor to MD</p>
+<p>Commands:<br>        w - Move forward<br>        a - Move left<br>        d - Move right<br>        s - Move back<br>        x - Stop<br>‘’’<br>import brickpi3 as BP<br>import time</p>
+<p>bp = BP.BrickPi3() # initialize a BrickPi3 object</p>
+<p>LEGO_MOTOR_LEFT = bp.PORT_C  # left EV3 motor connected to MC<br>LEGO_MOTOR_RIGHT = bp.PORT_D # right EV3 motor connected to MD</p>
+<p>DRIVE_SPEED = 200 # the motor speed, specified as dps (degree per second)</p>
+<p>#func for moving forward<br>def fwd():<br>    bp.set_motor_dps( LEGO_MOTOR_LEFT, DRIVE_SPEED )<br>    bp.set_motor_dps( LEGO_MOTOR_RIGHT, DRIVE_SPEED )</p>
+<p>#func for moving left<br>def left():<br>    bp.set_motor_dps( LEGO_MOTOR_RIGHT, DRIVE_SPEED )<br>    bp.set_motor_dps( LEGO_MOTOR_LEFT, -DRIVE_SPEED )</p>
+<p>#func for moving right<br>def right():<br>    bp.set_motor_dps( LEGO_MOTOR_RIGHT, -DRIVE_SPEED)<br>    bp.set_motor_dps( LEGO_MOTOR_LEFT, DRIVE_SPEED)</p>
+<p>#func for moving backward<br>def back():<br>    bp.set_motor_dps( LEGO_MOTOR_LEFT, -DRIVE_SPEED)<br>    bp.set_motor_dps( LEGO_MOTOR_RIGHT, -DRIVE_SPEED)</p>
+<p>#func for stop<br>def stop():<br>    bp.set_motor_dps( LEGO_MOTOR_LEFT, 0)<br>    bp.set_motor_dps( LEGO_MOTOR_RIGHT, 0)</p>
+<p>while True:<br>    print(‘请输入动作：’)<br>    inp = str(input())<br>    if inp == ‘w’:<br>        bp.set_motor_dps( LEGO_MOTOR_LEFT, DRIVE_SPEED )<br>        bp.set_motor_dps( LEGO_MOTOR_RIGHT, DRIVE_SPEED )<br>    elif inp == ‘a’:<br>        left()<br>    elif inp == ‘d’:<br>        right()<br>    elif inp == ‘s’:<br>        back()<br>    elif inp == ‘x’:<br>        stop()<br>    elif inp == ‘q’:<br>        stop()<br>        break<br>    time.sleep(0.01)</p>
+<p>bp.reset_all() # Unconfigure the sensors, disable the motors, and restore the LED to the control of the BrickPi3 firmware.<br><code>`</code><br>目前代码只是实现基本的功能，没有考虑完备性和各种情形，只能作为对于基础功能的验证。效果如下：</p>
+<p><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/simple_awsd.gif" alt="键盘控制机器人行进"></p>
+<p>(待续)</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/BrickPi/" rel="tag"># BrickPi</a>
+          
+            <a href="/tags/Raspberry-Pi/" rel="tag"># Raspberry Pi</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/01/04/media/Lego+BrickPi机器人课程学习-二-：第一个机器人/" rel="next" title="Lego+BrickPi机器人课程学习(二)：第一个机器人">
+                <i class="fa fa-chevron-left"></i> Lego+BrickPi机器人课程学习(二)：第一个机器人
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">solafishes</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#机器人的搭建"><span class="nav-number">1.</span> <span class="nav-text">机器人的搭建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#机器人编程"><span class="nav-number">2.</span> <span class="nav-text">机器人编程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Program-Name-simple-first-awsd"><span class="nav-number">3.</span> <span class="nav-text">Program Name: simple_first_awsd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">4.</span> <span class="nav-text">================================</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#This-code-is-for-moving-the-simplebot-with-awsd"><span class="nav-number">5.</span> <span class="nav-text">This code is for moving the simplebot with awsd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#created-to-test-the-first-robot-ever-built"><span class="nav-number">6.</span> <span class="nav-text">created to test the first robot ever built</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#History"><span class="nav-number">7.</span> <span class="nav-text">History</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#————————————————"><span class="nav-number">8.</span> <span class="nav-text">————————————————</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Author-Date-Comments"><span class="nav-number">9.</span> <span class="nav-text">Author     Date      Comments</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Siyu-20-01-04-Initial-Authoring"><span class="nav-number">10.</span> <span class="nav-text">Siyu       20/01/04  Initial Authoring</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#-1"><span class="nav-number">11.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#-2"><span class="nav-number">12.</span> <span class="nav-text"> </span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">solafishes</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
