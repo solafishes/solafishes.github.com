@@ -113,7 +113,7 @@
 <meta property="og:image" content="http://yoursite.com/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/original_turnning_wheel.jpg">
 <meta property="og:image" content="http://yoursite.com/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/final.jpg">
 <meta property="og:image" content="http://yoursite.com/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/simple_awsd.gif">
-<meta property="og:updated_time" content="2020-01-04T15:12:07.400Z">
+<meta property="og:updated_time" content="2020-01-04T15:48:48.524Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lego+BrickPi机器人课程学习(二)：第一个机器人">
 <meta name="twitter:description" content="从这个教程开始，就要开始介绍机器人的搭建和编程了，将混合参考Robotics 333和Dexster官网的教程进行。 机器人的搭建上图展示了Brick Pi的端口图，正如EV3拥有4个传感器接口和4个动作输出单元接口，我们的BrickPi也有4个传感器接口：S1-S4（S for Sensor），以及四个输出接口M1-M4 (M for Motor)。传感器和动作机构的连接方式和EV3相同。 Br">
@@ -381,7 +381,7 @@
                 
               
 
-              <time title="Created: 2020-01-04 13:39:37 / Modified: 23:12:07" itemprop="dateCreated datePublished" datetime="2020-01-04T13:39:37+08:00">2020-01-04</time>
+              <time title="Created: 2020-01-04 13:39:37 / Modified: 23:48:48" itemprop="dateCreated datePublished" datetime="2020-01-04T13:39:37+08:00">2020-01-04</time>
             
 
             
@@ -443,6 +443,7 @@
 <p>Brick Pi的外壳可以连接乐高Beam组件，连接过程中需要借助peg组件，注意为了组装的便捷，先一次一个将peg放置到位，再连接beam，如下图所示。</p>
 <p><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/Lego_beam.jpg" alt="外壳连接Beam"></p>
 <p>对于第一个机器人，我们将参考Robotics 333<a href="http://www.doc.ic.ac.uk/~ajd/Robotics/RoboticsResources/questions2.pdf" target="_blank" rel="noopener">第二堂习题课</a>的课程要求，而那里面提到将使用Dexster官网的<a href="https://www.dexterindustries.com/BrickPi/brickpi-tutorials-documentation/projects/simplebot/" target="_blank" rel="noopener">SimpleBot</a>案例教学进行。我们接下来将进行SimpleBot的组装，这是一个最简单的双轮差速机器人。</p>
+<a id="more"></a>
 <p>我对SimpleBot进行了如下升级：第一，将控制器外壳比较舒服地放到了底座上，并在上面制作了简易的电池仓；第二，考虑到带电池整体的重量比较大，将转向轮进行了加大，转向轮的设计参考了The Lego Mindstorms EV3 Discovery Book一书。以下是部分大图。</p>
 <p><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/battery_case.jpg" alt="电池支撑盒"><br><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/case_support.jpg" alt="控制器外壳支撑"><br><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/support.jpg" alt="底部加固"><br><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/front_support.jpg" alt="转向加固"><br><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/original_turnning_wheel.jpg" alt="原始转向轮设计"><br><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/final.jpg" alt="完成品"></p>
 <h1 id="机器人编程"><a href="#机器人编程" class="headerlink" title="机器人编程"></a>机器人编程</h1><p>SimpleBot是BrickPi+的案例，这里面给出的<code>simplebot_psp.py</code>，<code>simplebot_simple.py</code>和<code>simplebot_speed.py</code>等三个案例都是用之前版本的代码编写的，和BrickPi 3的代码相差很多。BrickPi 3的文档比较分散不完整，我们参考[BrickPi 3的API]源代码(<a href="https://github.com/DexterInd/BrickPi3)重新编写这三个文件并进行测试。" target="_blank" rel="noopener">https://github.com/DexterInd/BrickPi3)重新编写这三个文件并进行测试。</a></p>

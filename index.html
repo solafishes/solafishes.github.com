@@ -369,7 +369,7 @@
                 
               
 
-              <time title="Created: 2020-01-04 13:39:37 / Modified: 23:12:07" itemprop="dateCreated datePublished" datetime="2020-01-04T13:39:37+08:00">2020-01-04</time>
+              <time title="Created: 2020-01-04 13:39:37 / Modified: 23:48:48" itemprop="dateCreated datePublished" datetime="2020-01-04T13:39:37+08:00">2020-01-04</time>
             
 
             
@@ -427,33 +427,20 @@
 
       
         
-          
-            <p>从这个教程开始，就要开始介绍机器人的搭建和编程了，将混合参考Robotics 333和Dexster官网的教程进行。</p>
+          <p>从这个教程开始，就要开始介绍机器人的搭建和编程了，将混合参考Robotics 333和Dexster官网的教程进行。</p>
 <h1 id="机器人的搭建"><a href="#机器人的搭建" class="headerlink" title="机器人的搭建"></a>机器人的搭建</h1><p><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/port_diagram.png" alt="Brick Pi端口图"><br>上图展示了Brick Pi的端口图，正如EV3拥有4个传感器接口和4个动作输出单元接口，我们的BrickPi也有4个传感器接口：S1-S4（S for Sensor），以及四个输出接口M1-M4 (M for Motor)。传感器和动作机构的连接方式和EV3相同。</p>
 <p>Brick Pi的外壳可以连接乐高Beam组件，连接过程中需要借助peg组件，注意为了组装的便捷，先一次一个将peg放置到位，再连接beam，如下图所示。</p>
 <p><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/Lego_beam.jpg" alt="外壳连接Beam"></p>
 <p>对于第一个机器人，我们将参考Robotics 333<a href="http://www.doc.ic.ac.uk/~ajd/Robotics/RoboticsResources/questions2.pdf" target="_blank" rel="noopener">第二堂习题课</a>的课程要求，而那里面提到将使用Dexster官网的<a href="https://www.dexterindustries.com/BrickPi/brickpi-tutorials-documentation/projects/simplebot/" target="_blank" rel="noopener">SimpleBot</a>案例教学进行。我们接下来将进行SimpleBot的组装，这是一个最简单的双轮差速机器人。</p>
-<p>我对SimpleBot进行了如下升级：第一，将控制器外壳比较舒服地放到了底座上，并在上面制作了简易的电池仓；第二，考虑到带电池整体的重量比较大，将转向轮进行了加大，转向轮的设计参考了The Lego Mindstorms EV3 Discovery Book一书。以下是部分大图。</p>
-<p><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/battery_case.jpg" alt="电池支撑盒"><br><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/case_support.jpg" alt="控制器外壳支撑"><br><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/support.jpg" alt="底部加固"><br><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/front_support.jpg" alt="转向加固"><br><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/original_turnning_wheel.jpg" alt="原始转向轮设计"><br><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/final.jpg" alt="完成品"></p>
-<h1 id="机器人编程"><a href="#机器人编程" class="headerlink" title="机器人编程"></a>机器人编程</h1><p>SimpleBot是BrickPi+的案例，这里面给出的<code>simplebot_psp.py</code>，<code>simplebot_simple.py</code>和<code>simplebot_speed.py</code>等三个案例都是用之前版本的代码编写的，和BrickPi 3的代码相差很多。BrickPi 3的文档比较分散不完整，我们参考[BrickPi 3的API]源代码(<a href="https://github.com/DexterInd/BrickPi3)重新编写这三个文件并进行测试。" target="_blank" rel="noopener">https://github.com/DexterInd/BrickPi3)重新编写这三个文件并进行测试。</a></p>
-<p>注意，Raspbian for Robots已经将BrickPi3安装好了，直接在Python中就可以`import brickpi3。如果用了其他的操作系统，则需要如下进行安装：</p>
-<p><code>sudo curl https://raw.githubusercontent.com/DexterInd/Raspbian_For_Robots/master/upd_script/fetch_brickpi3.sh | bash</code></p>
-<p>实际编程的流程是这样的：（1）在Mac上进行编程工作；（2）通过scp命令将程序传到Raspberry Pi的指定位置；（3）通过ssh或vnc运行程序，实现机器人的程序控制。</p>
-<p>在实际运行的时候，我发现了Brick Pi面临的一个电压问题。一开始我使用了Battery Pack，将8节1.2V的AA电池串联进行供电，但是发现这样比较费电，1900毫安的电池1-2个小时就跪了，后来我自作聪明尝试用5V的充电宝进行供电，发现也是可以带动的，就这么用了。然而，在跑程序的时候，我发现电机根本没有响应，但是另一方面却能读到电机手动转动的位置数据。经过一番寻觅，最终发现就是充电宝的锅：根据<a href="https://www.dexterindustries.com/BrickPi/brickpi3-technical-design-details/" target="_blank" rel="noopener">这份说明</a>，Brick Pi上闪烁的黄灯表明了电压的水平：</p>
-<ol>
-<li>每秒1次说明输入电压在7.2V以上；</li>
-<li>每秒2次说明输入电压在7.2V以下；</li>
-<li>每秒4次说明输入电压低于6.5V或Raspberry的电压低于4.85V；</li>
-<li>快速闪烁说明Brick Pi和Raspberry Pi的连接有问题。</li>
-</ol>
-<p>设备要求的名义电压是9V，推荐电压是7.2-10V，虽然5V的电压可以驱动Raspberry，但是乐高的电机要求输入电压要达到9V。使用充电宝就是3.的情形，这时电机被自动disabled。所以尽管耗电快，还是必须使用之前的Battery Pack。</p>
-<h2 id="用键盘输入控制的SimpleBot"><a href="#用键盘输入控制的SimpleBot" class="headerlink" title="用键盘输入控制的SimpleBot"></a>用键盘输入控制的SimpleBot</h2><p>直接给出代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">##################################################                                                              </span><br><span class="line"># Program Name: simple_first_awsd                                   </span><br><span class="line"># ================================     </span><br><span class="line"># This code is for moving the simplebot with awsd</span><br><span class="line"># created to test the first robot ever built                                </span><br><span class="line"># History</span><br><span class="line"># ------------------------------------------------</span><br><span class="line"># Author     Date      Comments</span><br><span class="line"># Siyu       20/01/04  Initial Authoring</span><br><span class="line">#                                                                  </span><br><span class="line">#    </span><br><span class="line">#</span><br><span class="line">##################################################</span><br><span class="line"></span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">Hardware:</span><br><span class="line">		Left Wheel - Connect EV3 Large Motor to MC</span><br><span class="line">		Right Wheel - Connect EV3 Large Motor to MD</span><br><span class="line"></span><br><span class="line">Commands:</span><br><span class="line">		w - Move forward</span><br><span class="line">		a - Move left</span><br><span class="line">		d - Move right</span><br><span class="line">		s - Move back</span><br><span class="line">		x - Stop </span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">import brickpi3 as BP</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">bp = BP.BrickPi3() # initialize a BrickPi3 object</span><br><span class="line"></span><br><span class="line">LEGO_MOTOR_LEFT = bp.PORT_C  # left EV3 motor connected to MC</span><br><span class="line">LEGO_MOTOR_RIGHT = bp.PORT_D # right EV3 motor connected to MD</span><br><span class="line"></span><br><span class="line">DRIVE_SPEED = 200 # the motor speed, specified as dps (degree per second)</span><br><span class="line"></span><br><span class="line">#func for moving forward</span><br><span class="line">def fwd():</span><br><span class="line">	bp.set_motor_dps( LEGO_MOTOR_LEFT, DRIVE_SPEED )</span><br><span class="line">	bp.set_motor_dps( LEGO_MOTOR_RIGHT, DRIVE_SPEED )</span><br><span class="line"></span><br><span class="line">#func for moving left</span><br><span class="line">def left():</span><br><span class="line">	bp.set_motor_dps( LEGO_MOTOR_RIGHT, DRIVE_SPEED )</span><br><span class="line">	bp.set_motor_dps( LEGO_MOTOR_LEFT, -DRIVE_SPEED )</span><br><span class="line"></span><br><span class="line">#func for moving right</span><br><span class="line">def right():</span><br><span class="line">	bp.set_motor_dps( LEGO_MOTOR_RIGHT, -DRIVE_SPEED)</span><br><span class="line">	bp.set_motor_dps( LEGO_MOTOR_LEFT, DRIVE_SPEED)</span><br><span class="line"></span><br><span class="line">#func for moving backward</span><br><span class="line">def back():</span><br><span class="line">	bp.set_motor_dps( LEGO_MOTOR_LEFT, -DRIVE_SPEED)</span><br><span class="line">	bp.set_motor_dps( LEGO_MOTOR_RIGHT, -DRIVE_SPEED)</span><br><span class="line"></span><br><span class="line">#func for stop</span><br><span class="line">def stop():</span><br><span class="line">	bp.set_motor_dps( LEGO_MOTOR_LEFT, 0)</span><br><span class="line">	bp.set_motor_dps( LEGO_MOTOR_RIGHT, 0)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">while True:</span><br><span class="line">	print(&apos;请输入动作：&apos;)</span><br><span class="line">	inp = str(input())</span><br><span class="line">	if inp == &apos;w&apos;:</span><br><span class="line">		bp.set_motor_dps( LEGO_MOTOR_LEFT, DRIVE_SPEED )</span><br><span class="line">		bp.set_motor_dps( LEGO_MOTOR_RIGHT, DRIVE_SPEED )</span><br><span class="line">	elif inp == &apos;a&apos;:</span><br><span class="line">		left()</span><br><span class="line">	elif inp == &apos;d&apos;:</span><br><span class="line">		right()</span><br><span class="line">	elif inp == &apos;s&apos;:</span><br><span class="line">		back()</span><br><span class="line">	elif inp == &apos;x&apos;:</span><br><span class="line">		stop()</span><br><span class="line">	elif inp == &apos;q&apos;:</span><br><span class="line">		stop()</span><br><span class="line">		break</span><br><span class="line">	time.sleep(0.01)</span><br><span class="line"></span><br><span class="line">bp.reset_all() # Unconfigure the sensors, disable the motors, and restore the LED to the control of the BrickPi3 firmware.</span><br></pre></td></tr></table></figure>
-<p>目前代码只是实现基本的功能，没有考虑完备性和各种情形，只能作为对于基础功能的验证。效果如下：</p>
-<p><img src="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/simple_awsd.gif" alt="键盘控制机器人行进"></p>
-<p>(待续)</p>
-
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/01/04/Lego+BrickPi机器人课程学习(二)：第一个机器人/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -570,7 +557,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-04 22:07:50" itemprop="dateModified" datetime="2020-01-04T22:07:50+08:00">2020-01-04</time>
+                <time title="Modified: 2020-01-04 23:49:02" itemprop="dateModified" datetime="2020-01-04T23:49:02+08:00">2020-01-04</time>
               
             
           </span>
@@ -623,28 +610,20 @@
 
       
         
-          
-            <p>年初的时候蛋总买了LEGO的第三代机器人平台MindStorm EV3，再一次激起了学习机器人相关知识的热情。目前我对于机器人的软硬件了解都非常有限，甚至基本的控制理论都不清楚，这在一个号称以黑科技为主导的机器人部门有点说不过去啊，虽然我们平时的工作是在大规模调度和供应链这个维度上的。另一方面，我们虽然想涉及优化理论在机器人控制、调度和识别中的应用，但是对于机器人基础的了解很少的情况下，这也就只能是想想。</p>
+          <p>年初的时候蛋总买了LEGO的第三代机器人平台MindStorm EV3，再一次激起了学习机器人相关知识的热情。目前我对于机器人的软硬件了解都非常有限，甚至基本的控制理论都不清楚，这在一个号称以黑科技为主导的机器人部门有点说不过去啊，虽然我们平时的工作是在大规模调度和供应链这个维度上的。另一方面，我们虽然想涉及优化理论在机器人控制、调度和识别中的应用，但是对于机器人基础的了解很少的情况下，这也就只能是想想。</p>
 <p>借着拿到EV3的契机，我就开始了短短续续的学习规划。本来考虑一方面学习LEGO的图形化编程一边拿着手里的Arduino学习一些控制方面的知识，但是由于今年事情很多，这两块都耽误了。其实还有其他原因，一方面，LEGO的编程模式太过入门化，就算按部就班进行下去对于机理方面也不会有太多的进展；另一方面，Arduino的编程要使用Processing语言，这是基于Java的一门语言，我又不是太想dive into Java，所以也就浅尝辄止了，但是我确实买了很多传感器和breadboard，也许之后会继续这条路吧。</p>
 <p>转机是我看到了帝国理工Andrew Davison教授的<a href="http://www.doc.ic.ac.uk/~ajd/Robotics/" target="_blank" rel="noopener">Robotics 333课程</a>。该课程使用了EV3作为机械和结构单元，但是控制端则放弃了EV3的控制器，而是使用了Dexter Industries的BrickPi 3平台。这个平台的好处在于它利用GPIO和Raspberry Pi进行通讯，后者通过python API编写控制代码，而我既对Python比较了解，又有两个富裕的二代的Raspberry Pi。Robotics 333这门课在网上开放了课程材料，所以综上种种，一条学习路径变得清晰了。</p>
 <p><img src="/2019/12/29/Lego+BrickPi机器人课程学习(一)：准备工作/BrickPi3-How-it-Works.jpg" alt="原理图"></p>
 <p>我希望这个学习的过程能做成一个专题，这一讲的话还是比较基础的housekeeping工作，先把需要准备的都准备了。</p>
-<h1 id="设备采买"><a href="#设备采买" class="headerlink" title="设备采买"></a>设备采买</h1><p>不用说，肯定要有LEGO EV3，Raspberry Pi和BrickPi 3。EV3最好用31333套装，这样减少前期就需要添置基本块的需求。Raspberry Pi只要带WiFi模块就行，第二代以后的设备都能满足要求。BrickPi 3可以从官网和亚马逊买到，前者不送中国大陆，注意不要买到原始型号BrickPi+，后者感觉像是个半成品。小的部件方面，电池尽量多买(BrickPi的电池盒就需要8个1.2V的AA)，AA和AAA的充电电池，最好买松下的eneloop和充电盒套装；SD卡买1-2个，网线1根，螺丝工具1套等等。</p>
-<h1 id="设备准备"><a href="#设备准备" class="headerlink" title="设备准备"></a>设备准备</h1><p>333第二讲的时候就开始要使用机器人平台了，因此看完第一讲的课件我们就需要把设备搭建起来了。这里我们参考<a href="https://www.dexterindustries.com/brickpi3-tutorials-documentation/" target="_blank" rel="noopener">Dexster的Getting Started</a>教程。这个教程很细，但是排版和结构真的是很随意。</p>
-<h2 id="设备组装"><a href="#设备组装" class="headerlink" title="设备组装"></a>设备组装</h2><p>参照这个<a href="https://www.dexterindustries.com/BrickPi/brickpi3-getting-started-step-1-assembly/" target="_blank" rel="noopener">组装教程</a>进行，需要螺丝工具和些许手工技巧。最后得到的效果如图。</p>
-<p><img src="/2019/12/29/Lego+BrickPi机器人课程学习(一)：准备工作/assembled.jpg" alt="组装完成图"></p>
-<p>一开始我不想用BrickPi提供的壳子，后来发现我的壳子太大，而且上面没有固定LEGO零件的孔，所以还是必须要换。注意电池组直接连到BrickPi,通过GPIO给Raspberry Pi供电。但是反着来（后者给前者供电）是不行的。</p>
-<h2 id="系统安装和设置"><a href="#系统安装和设置" class="headerlink" title="系统安装和设置"></a>系统安装和设置</h2><p>一开始我用了NOOB来安装系统，但是BrickPi在教程中提到了不支持经由NOOB安装的系统，我也确实遇到了后面ping不通的问题。因为我目前对这个问题还不清楚原因，所以保险起见我选择了Raspbian for Robots这个系统，安装和配置看<a href="https://www.dexterindustries.com/howto/install-raspbian-for-robots-image-on-an-sd-card/" target="_blank" rel="noopener">这个教程</a>。</p>
-<p>安装后，将设备开关打开，和Mac间用网线连接，以测试电脑是不是能够连上BrickPi，这个可以参考<a href="https://www.dexterindustries.com/BrickPi/brickpi3-getting-started-step-2-connect-brickpi/brickpi3-getting-started-step-2-connect-brickpi-mac/" target="_blank" rel="noopener">这个教程</a>。我在这里提下几种在有线的环境下能够访问设备的方式：</p>
-<ol>
-<li>直接SSH：<code>ssh pi@dex.local</code>，注意密码是robots1234（下同）。</li>
-<li>在浏览器中访问<a href="http://dex.local" target="_blank" rel="noopener">http://dex.local</a>，选择VNC，然后就能看到Raspberry的桌面。<img src="/2019/12/29/Lego+BrickPi机器人课程学习(一)：准备工作/dexlocal.png" alt="dexlocal">,能看到我的界面长这个样子。<img src="/2019/12/29/Lego+BrickPi机器人课程学习(一)：准备工作/mydex.png" alt="mydex"></li>
-<li>通过teamviewer。</li>
-</ol>
-<h2 id="无线配置"><a href="#无线配置" class="headerlink" title="无线配置"></a>无线配置</h2><p>参考官网提供的无线配置方法，我的Raspberry Pi Model B不支持WiFi，所以之前已经在使用USB WiFi适配器了，所以直接拿掉网线在命令行输入<code>ping dex.local</code>就能够ping通。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>到此为止，Raspberry Pi和Brick Pi的准备工作已经完成了。下面我们将进行第一个机器人的组装。</p>
-
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/12/29/Lego+BrickPi机器人课程学习(一)：准备工作/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -761,7 +740,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-04 23:11:48" itemprop="dateModified" datetime="2020-01-04T23:11:48+08:00">2020-01-04</time>
+                <time title="Modified: 2020-01-04 23:56:29" itemprop="dateModified" datetime="2020-01-04T23:56:29+08:00">2020-01-04</time>
               
             
           </span>
@@ -814,50 +793,17 @@
 
       
         
-          
-            <p><img src="/2019/04/06/About-Hexo/GitHub-X-Hexo.jpg" alt="Title Image"></p>
+          <p><img src="/2019/04/06/About-Hexo/GitHub-X-Hexo.jpg" alt="Title Image"></p>
 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>该博客使用<a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>创建在我的GitHub上，这篇HOWTO的目的是作为一个参考帖，可以在需要参考相关内容的时候得到解答。因此，这篇文章的内容也会不断更新。</p>
-<h1 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h1><ul>
-<li>Windows：下载并安装<a href="https://git-scm.com/download/win" target="_blank" rel="noopener">git</a>。</li>
-<li>Mac：使用 <a href="http://mxcl.github.com/homebrew/" target="_blank" rel="noopener">Homebrew</a>, <a href="http://www.macports.org/" target="_blank" rel="noopener">MacPorts</a> ：<code>brew install git</code>；或下载 <a href="http://sourceforge.net/projects/git-osx-installer/" target="_blank" rel="noopener">安装程序</a> 安装。</li>
-<li>Linux (Ubuntu, Debian)：<code>sudo apt-get install git-core</code></li>
-<li>Linux (Fedora, Red Hat, CentOS)：<code>sudo yum install git-core</code></li>
-</ul>
-<h1 id="GitHub创建个人仓库"><a href="#GitHub创建个人仓库" class="headerlink" title="GitHub创建个人仓库"></a>GitHub创建个人仓库</h1><p>注册一个GitHub账号，创建一个和用户名相同的仓库，后面加.github.io，这样将来部署到GitHub pages时才会被识别，如我的站名<a href="https://solafishes.github.io/" target="_blank" rel="noopener">solafishes.github.io</a>。</p>
-<p>打开Terminal，在Git中加入你的用户名和邮箱，</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">"yourname"</span></span><br><span class="line">git config --global user.email <span class="string">"youremail"</span></span><br></pre></td></tr></table></figure>
-<p>这里的yourname是GitHub用户名，youremail是GitHub的邮箱。可以使用如下命令检查是否加入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config user.name</span><br><span class="line">git config user.email</span><br></pre></td></tr></table></figure></p>
-<p>接下来创建SSH Key：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"youremail"</span></span><br></pre></td></tr></table></figure></p>
-<p>不需要设置密码，直接按回车，直到生成完成。生成的key可以在<code>~/.ssh/id)rsa.pub</code>找到，使用<code>pbcopy &lt; ~/.ssh/id_rsa.pub</code>将key全部复制到剪切板。</p>
-<p>在GitHub右上角进入Settings,新建new SSH Key。Title为标题，任意填即可，将刚刚复制的id_rsa.pub内容粘贴进去，最后点击Add SSH key。</p>
-<p>在Git Bash中检测GitHub公钥设置是否成功，输入 <code>ssh git@github.com</code>。这里之所以设置GitHub密钥原因是，通过非对称加密的公钥与私钥来完成加密，公钥放置在GitHub上，私钥放置在自己的电脑里。GitHub要求每次推送代码都是合法用户，所以每次推送都需要输入账号密码验证推送用户是否是合法用户，为了省去每次输入密码的步骤，采用了ssh，当你推送的时候，git就会匹配你的私钥跟GitHub上面的公钥是否是配对的，若是匹配就认为你是合法用户，则允许推送。这样可以保证每次的推送都是正确合法的。 </p>
-<h1 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h1><p>Hexo基于Node.js，安装 Node.js 的最佳方式是使用<a href="https://github.com/creationix/nvm" target="_blank" rel="noopener">nvm</a>。</p>
-<p>cURL:<br><code>$ curl https://raw.github.com/creationix/nvm/v0.33.11/install.sh | sh</code><br>Wget:<br><code>$ wget -qO- https://raw.github.com/creationix/nvm/v0.33.11/install.sh | sh</code></p>
-<p>安装完成后，重启终端并执行下列命令即可安装 Node.js。<br><code>$ nvm install stable</code></p>
-<p>或者您也可以下载<a href="http://nodejs.org/" target="_blank" rel="noopener">安装程序</a>来安装。安装后，检测Node.js是否安装成功，在命令行中输入<code>node -v</code>。检测npm是否安装成功，在命令行中输入<code>npm -v</code>。到这了，安装Hexo的环境已经全部搭建完成。</p>
-<h1 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h1><p>Hexo是一款基于Node.js的静态博客框架，依赖少易于安装使用，可以方便的生成静态网页托管在GitHub和Coding上，是搭建博客的首选框架。大家可以进入<a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">hexo官网</a>进行详细查看，因为Hexo的创建者是台湾人，对中文的支持很友好，可以选择中文进行查看。</p>
-<p>使用npm命令安装Hexo，输入：<code>npm install -g hexo-cli</code>。然后在本地创建一个博客文件夹，然后打开Terminal，cd到该文件夹。初始化Hexo:<code>hexo init ./</code>，然后使用<code>npm install</code>。</p>
-<p>新建完成后，文件夹目录下有如下内容(详细内容<a href="https://hexo.io/zh-cn/docs/setup" target="_blank" rel="noopener">参考</a>)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+-- _config.yml //博客的配置文件</span><br><span class="line">+-- package.json //应用程序的信息</span><br><span class="line">+-- scaffolds //生成文章所用的一些模版</span><br><span class="line">+-- node_modules //依赖包</span><br><span class="line">+-- public //存放生成的页面 </span><br><span class="line">+-- source //用来存放文章</span><br><span class="line">|   +-- _posts</span><br><span class="line">|   +-- _drafts</span><br><span class="line">+-- themes //博客的主题</span><br></pre></td></tr></table></figure></p>
-<p>Hexo的一些基本命令包括：</p>
-<ul>
-<li><code>hexo n &quot;new post&quot;</code>或<code>hexo new &quot;new post&quot;</code> 新建名为”new post”的文章。</li>
-<li><code>hexo g</code>或<code>hexo generate</code>生成博客。</li>
-<li><code>hexo s</code>或<code>hexo server</code>启动服务本地预览，默认在浏览器中打开<code>localhost:4000</code>即可进行预览。使用<code>-p</code>选项设置端口，<code>-i</code>自定义IP。</li>
-<li><code>hexo d</code>或<code>hexo deploy</code>部署博客。</li>
-</ul>
-<h1 id="推送网站"><a href="#推送网站" class="headerlink" title="推送网站"></a>推送网站</h1><p>为了把网站推送到GitHub，需要修改blog目录下的<code>_config.yml</code>文件。打开该文件在最后部分添加如下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https://github.com/solafishes/solafishes.github.com.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure></p>
-<p>使用<code>hexo d</code>就会将你的页面上传到GitHub上的对应仓库里。执行<code>hexo d</code>报错的话使用<code>npm install hexo-deployer-git --save</code>（Git部署插件）应该就能解决。</p>
-<h1 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h1><p>Hexo本来不支持markdown语法插入图片，需要下载<a href="https://github.com/7ym0n/hexo-asset-image" target="_blank" rel="noopener">hexo-asset-image</a>: <code>npm install hexo-asset-image --save</code>。<br>配置_config.yml里面的post_asset_folder:false这个选项设置为true，执行命令<code>$ hexo new post_name</code>，在<code>source/_posts</code>中会生成文章<code>post_name.md</code>和同名文件夹<code>post_name</code>。将图片资源放在<code>post_name</code>中，文章就可以使用相对路径引用图片资源了。</p>
-<p>另外还可以通过标签语法<code></code>插入图片，但是在安装hexo-asset-image之后，貌似会出现问题。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/2019/04/06/About-Hexo/default.jpg" alt="默认主题"&gt;<span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"/2019/04/06/About-Hexo/2019/04/06/About-Hexo/default.jpg"</span> <span class="attr">title</span>=<span class="string">"This is an image"</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h1 id="关于tags和categories"><a href="#关于tags和categories" class="headerlink" title="关于tags和categories"></a>关于tags和categories</h1><p>由于使用了Next主题，默认tags和categories页面在目录中是关闭的。按如下步骤设置。</p>
-<h2 id="设置主题下的-config-yaml"><a href="#设置主题下的-config-yaml" class="headerlink" title="设置主题下的_config.yaml"></a>设置主题下的<code>_config.yaml</code></h2><p>打开<code>themes/next/_config.yaml</code>，在目录<code>menu</code>设置部分，将注释掉的<code>tags</code>和<code>categories</code>恢复：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: / || home</span><br><span class="line">  #about: /about/ || user</span><br><span class="line">  tags: /tags/ || tags</span><br><span class="line">  categories: /categories/ || th</span><br><span class="line">  archives: /archives/ || archive</span><br><span class="line">  #schedule: /schedule/ || calendar</span><br><span class="line">  #sitemap: /sitemap.xml || sitemap</span><br><span class="line">  #commonweal: /404/ || heartbeat</span><br></pre></td></tr></table></figure></p>
-<h2 id="创建页面"><a href="#创建页面" class="headerlink" title="创建页面"></a>创建页面</h2><p>分别执行<code>hexo new page tags</code>和<code>hexo new page categories</code>，这将在<code>source/</code>目录下生成<code>tags/</code>和<code>categories/</code>。打开这两个文件夹下的<code>index.md</code>并添加<code>type: tags</code>和<code>type: categories</code>这行，并注意冒号后面的空格。</p>
-<h2 id="文档处理"><a href="#文档处理" class="headerlink" title="文档处理"></a>文档处理</h2><p>在文档头部设置分类信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Lego+BrickPi机器人课程学习</span><br><span class="line">date: 2019-12-29 19:31:39</span><br><span class="line">tags: </span><br><span class="line">- BrickPi</span><br><span class="line">- Raspberry Pi</span><br><span class="line">categories:</span><br><span class="line">- 机器人相关教程</span><br><span class="line">---</span><br></pre></td></tr></table></figure></p>
-<p>重新生成博客并部署就可以在目录上看到<code>tags</code>和<code>categories</code>页面。</p>
-<p><img src="/2019/04/06/About-Hexo/tags.jpg" alt="分类标签"></p>
-<h1 id="尾言"><a href="#尾言" class="headerlink" title="尾言"></a>尾言</h1><p>本文介绍了使用Hexo建博客的基本内容，涉及到主题的修改和其他个性化设置，需要的时候会在后续文章介绍。</p>
-
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/04/06/About-Hexo/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
