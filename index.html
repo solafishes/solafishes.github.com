@@ -369,7 +369,7 @@
                 
               
 
-              <time title="Created: 2020-01-05 13:32:01 / Modified: 14:59:07" itemprop="dateCreated datePublished" datetime="2020-01-05T13:32:01+08:00">2020-01-05</time>
+              <time title="Created: 2020-01-05 13:32:01 / Modified: 15:13:47" itemprop="dateCreated datePublished" datetime="2020-01-05T13:32:01+08:00">2020-01-05</time>
             
 
             
@@ -432,11 +432,12 @@
 <h1 id="双轮差速运动学基础">双轮差速运动学基础</h1>
 <h2 id="概念">概念</h2>
 <p>平面机器人有3个自由度，两个平移，一个旋转（空间机器人有6个），能够同时独立进行这三个自由度运动的是Holonomic Robot，使用麦克纳姆轮系。一般的平面机器人都无法做到。课件中指出，一般平面机器人的配置或者像汽车（三轮车）这种是驱动轮+导向轮，或者是扫地机器人这种是驱动轮+驱动轮差速导向。前者的运动学通过Ackerman Steering（阿克曼转向）描述，相对复杂。所以这里的课程采用了后者，事实上目前服务类机器人和AGV的都是使用差速转向，运动学相对简单。</p>
+<h3 id="两轮模型">两轮模型</h3>
 <p>对于两轮模型，当两轮速度相同，则进行直线运动；两轮速度反向，则进行原地旋转(Turn on Spot)，其他速度组合则会进行圆弧运动，如下描述：</p>
 <figure>
-<img src="/2020/01/05/Lego+BrickPi机器人课程学习(三)：动力学和控制/dual_wheel_circular.png" alt><figcaption>两轮差速圆弧运动</figcaption>
+<img src="/2020/01/05/Lego+BrickPi机器人课程学习(三)：动力学和控制/dual_wheel_circular.png" title="这是个标题" alt><figcaption>两轮差速圆弧运动</figcaption>
 </figure>
-<p>设左右轮速矢量（地面线速度）为<span class="math inline">\(V_L\)</span>和<span class="math inline">\(V_R\)</span>,</p>
+<p>设左右轮速矢量（地面线速度）为<span class="math inline">\(V_L\)</span>和<span class="math inline">\(V_R\)</span>，轮间距为<span class="math inline">\(W\)</span>，我们关注的是如何根据这些信息确定旋转的半径<span class="math inline">\(R\)</span>以及，旋转角度和时间<span class="math inline">\(\Delta_t\)</span>的关系。知道了这些，就能够根据<span class="math inline">\(\Delta_t\)</span>确定那一时刻的机器人姿态（二维坐标和旋转角）。</p>
 <h1 id="pid控制">PID控制</h1>
 <h1 id="lego-motor的基本控制方法">LEGO MOTOR的基本控制方法</h1>
 <h1 id="lecture-2-习题课">Lecture 2 习题课</h1>
