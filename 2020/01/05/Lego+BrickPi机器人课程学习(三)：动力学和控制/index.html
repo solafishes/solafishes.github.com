@@ -105,7 +105,9 @@
 <meta property="og:description" content="从这一次开始我们将主要根据Robotics 333的课件来进行相关实践了。这一讲是针对Lecture 2的运动学和控制，以及习题课。虽然不会照着课件全都写一遍，但是会将重点的公式和推倒拿过来，后面实践的时候用得到。 双轮差速运动学基础 概念 平面机器人有3个自由度，两个平移，一个旋转（空间机器人有6个），能够同时独立进行这三个自由度运动的是Holonomic Robot，使用麦克纳姆轮系。一般的平">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2020/01/05/Lego+BrickPi机器人课程学习(三)：动力学和控制/dual_wheel_circular.png">
-<meta property="og:updated_time" content="2020-01-05T07:43:03.556Z">
+<meta property="og:image" content="http://yoursite.com/2020/01/05/Lego+BrickPi机器人课程学习(三)：动力学和控制/tri_wheel_circular.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/05/Lego+BrickPi机器人课程学习(三)：动力学和控制/power_raw.gif">
+<meta property="og:updated_time" content="2020-01-05T14:00:13.493Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lego+BrickPi机器人课程学习(三)：动力学和控制">
 <meta name="twitter:description" content="从这一次开始我们将主要根据Robotics 333的课件来进行相关实践了。这一讲是针对Lecture 2的运动学和控制，以及习题课。虽然不会照着课件全都写一遍，但是会将重点的公式和推倒拿过来，后面实践的时候用得到。 双轮差速运动学基础 概念 平面机器人有3个自由度，两个平移，一个旋转（空间机器人有6个），能够同时独立进行这三个自由度运动的是Holonomic Robot，使用麦克纳姆轮系。一般的平">
@@ -373,7 +375,7 @@
                 
               
 
-              <time title="Created: 2020-01-05 13:32:01 / Modified: 15:43:03" itemprop="dateCreated datePublished" datetime="2020-01-05T13:32:01+08:00">2020-01-05</time>
+              <time title="Created: 2020-01-05 13:32:01 / Modified: 22:00:13" itemprop="dateCreated datePublished" datetime="2020-01-05T13:32:01+08:00">2020-01-05</time>
             
 
             
@@ -434,7 +436,8 @@
 <h1 id="双轮差速运动学基础">双轮差速运动学基础</h1>
 <h2 id="概念">概念</h2>
 <p>平面机器人有3个自由度，两个平移，一个旋转（空间机器人有6个），能够同时独立进行这三个自由度运动的是Holonomic Robot，使用麦克纳姆轮系。一般的平面机器人都无法做到。课件中指出，一般平面机器人的配置或者像汽车（三轮车）这种是驱动轮+导向轮，或者是扫地机器人这种是驱动轮+驱动轮差速导向。前者的运动学通过Ackerman Steering（阿克曼转向）描述，相对复杂。所以这里的课程采用了后者，事实上目前服务类机器人和AGV的都是使用差速转向，运动学相对简单。</p>
-<h3 id="两轮模型">两轮模型</h3>
+<a id="more"></a>
+<h3 id="两轮运动模型">两轮运动模型</h3>
 <p>对于两轮模型，当两轮速度相同，则进行直线运动；两轮速度反向，则进行原地旋转(Turn on Spot)，其他速度组合则会进行圆弧运动，如下描述：</p>
 <figure>
 <img src="/2020/01/05/Lego+BrickPi机器人课程学习(三)：动力学和控制/dual_wheel_circular.png" alt><figcaption>两轮差速圆弧运动</figcaption>
@@ -442,9 +445,39 @@
 <p>设左右轮速矢量（地面线速度）为<span class="math inline">\(V_L\)</span>和<span class="math inline">\(V_R\)</span>，轮间距为<span class="math inline">\(W\)</span>，我们关注的是如何根据这些信息确定旋转的半径<span class="math inline">\(R\)</span>以及，旋转角度和时间<span class="math inline">\(\Delta_t\)</span>的关系。知道了这些，就能够根据<span class="math inline">\(\Delta_t\)</span>确定那一时刻的机器人姿态（二维坐标和旋转角）。</p>
 <p>首先对于左右轮，他们都旋转了<span class="math inline">\(\Delta_\theta\)</span>，而这个角是他们各自行驶的距离比上各自旋转半径：</p>
 <p><span class="math display">\[\Delta_\theta = \frac{Dis_R}{R_R} = \frac{Dis_L}{R_L} = \frac{V_R \Delta_t}{R + W/2} = \frac{V_L \Delta_t}{R-W/2}\]</span></p>
-<p>最右侧两项公式相等求出<span class="math inline">\(R = \frac{\frac{W}{2}(V_L+V_R)}{V_R-V_L}\)</span>。注意</p>
-<h1 id="pid控制">PID控制</h1>
-<h1 id="lego-motor的基本控制方法">LEGO MOTOR的基本控制方法</h1>
+<p>最右侧两项公式相等求出<span class="math inline">\(R = \frac{W(V_L+V_R)}{2(V_R-V_L)}\)</span>。注意到L和R以及其中点的角速度是相同的（刚体），而根据速度叠加原理，中间点的速度是<span class="math inline">\((V_R+V_L)/2\)</span>，于是得到<span class="math inline">\(\omega R = \frac{V_R+V_L}{2}\)</span>，即</p>
+<p><span class="math display">\[\omega = \frac{\Delta_\theta}{\Delta_t} = \frac{V_R-V_L}{W}\]</span></p>
+<p>由角速度公式可以看到，当<span class="math inline">\(V_R - V_L&gt;0\)</span>是，角速度大于0，为逆时针运动，否则角速度为负，顺时针运动。</p>
+<h3 id="三轮运动模型">三轮运动模型</h3>
+<p>考虑如图的三轮模型，考虑驱动轮和转向舵轮是同一个，前面两轮从动，假设不存在横向打滑。</p>
+<figure>
+<img src="/2020/01/05/Lego+BrickPi机器人课程学习(三)：动力学和控制/tri_wheel_circular.png" alt><figcaption>单舵轮模型</figcaption>
+</figure>
+<p>从力学角度，舵轮旋转后产生圆弧运动的原因是：舵轮旋转时产生与从动轮速度方向垂直的速度分量，但是从动轮运动方向与该方向垂直，因此产生了向心摩擦力，从而改变了从动轮的速度方向（大小不变），也即发生了圆弧运动。也可以认为从动和舵轮产生了逆时针的旋转力矩。</p>
+<p>考虑从动轮和舵轮的垂直距离为<span class="math inline">\(L\)</span>，显然有从动轮中心点旋转半径<span class="math inline">\(R= \frac{L}{\tan{s}}\)</span>，且有舵轮线速度<span class="math inline">\(v = \omega R_d\)</span>，即<span class="math inline">\(\frac{\Delta_\theta}{\Delta _t} = \frac{v \sin{s}}{L}\)</span>。</p>
+<h1 id="电机和控制">电机和控制</h1>
+<p>乐高使用直流电机作为Large Motor，通过脉宽调制(Pulse Width Modulation)控制信号的强度，由于内部具有encoder，可以用PID控制方法实现伺服控制。</p>
+<h2 id="pwm概念">PWM概念</h2>
+<p>PWM 是 Pulse Width Modulation 的缩写，它的中文名字是脉冲宽度调制，它利用微处理器的数字输出来对模拟电路进行控制。PWM信号把模拟信号转化为数字电路所需要的编码，现在基本是采用数字电路，因此在很多场合都采用PWM信号，我们经常见到的就是交流调光电路，也可以说是无级调速，高电平占多一点，也就是占空比大一点亮度就亮一点，占空比小一点亮度就没有那么亮，前提是PWM的频率要大于我们人眼识别频率，要不然会出现闪烁现象。</p>
+<h2 id="pid控制">PID控制</h2>
+<p>乐高的电机内部具有Encoder，虽然编码器是和主轴绑定，但是电机的驱动程序通过内部的传动比，将数字转化成了末端效应器的旋转角度。有了这个数据我们可以进行伺服控制：任意时点我们希望的效应器旋转角度可以通过我们希望机器人所到达的位置和状态来决定，而任意时点机器人效应器的旋转角度都通过Encorder回传，这两者是有误差的，通过控制下一时点的信号强度来不断缩小这个误差，就达到了伺服控制的目的。</p>
+<p>而PID（Proportional/Integral/Differential）控制就是一种经典的控制方法。虽然不打算把PID现在就弄得明明白白，但是对于基础概念还是要掌握，我先看了这篇讲<a href="https://zhuanlan.zhihu.com/p/65339164" target="_blank" rel="noopener">自动控制历史发展的帖子</a>，而后又看了这篇<a href="https://zhuanlan.zhihu.com/p/39573490" target="_blank" rel="noopener">介绍PID的帖子</a>。只要明白比例调节为主，积分调节放置稳态误差，微分调节防止震荡，具体的离散形式公式就不再赘述。</p>
+<h2 id="lego-motor的基本控制方法">LEGO MOTOR的基本控制方法</h2>
+<p>这里将结合BrickPi 3给出的多个实例<code>LEGO-Motor_Encoder.py</code>,<code>LEGO-Motor_Status.py</code>,<code>LEGO-Motor_Power.py</code>, <code>LEGO-Motor_Position.py</code>和<code>LEGO-Motor_DPS.py</code>进行理解。</p>
+<p>首先理解Brick3 API中给出的对电机进行控制的函数：</p>
+<ol type="1">
+<li>直接施加Power：BP.set_motor_power(BP.Port_A,power)：直接施加-100到100的信号水平（用PWM实现），但不进行PID调节。特殊地，BP.set_motor_power(BP.Port_A,BP.MOTOR FLOAT)允许直接用手旋转电机并可记录Encoder转数。</li>
+<li>施加position控制：BP.set_motor_position(BP.Port_A,degrees)：直接施加一个位置需求（将距离表达为旋转角度数），电机通过PID控制达到这个位置。</li>
+<li>施加速度控制：BP.set_motor_dps(BP.Port_A,dps)：直接施加速度需求（表达为每秒旋转度数），电机通过PID控制达到该速度。</li>
+<li>PID控制数：BP.set_motor_position_kp(BP.PORT_A,kp)设置PID比例常数，默认25；BP.set_motor_position_kd(BP.PORT_A,kd)设置PID微分常数，默认70；BP.set_motor_limits(BP.PORT_A,power,dps)：设置在PID控制中使用的信号强度和转速。</li>
+<li>状态量：BP.get motor encoder(BP.PORT A)得到相应电机的转速计数；BP.offset motor encoder(BP.PORT A,BP.get motor encoder(BP.PORT A))则将该旋转计数清零。BP.get motor status(BP.PORT_A)得到电机当前状态的四元变量：状态，信号（-100到100)，旋转计数和当前DPS转速。</li>
+<li>最后，BP.reset_all()会将所有传感器和电机配置清空，并释放黄色LED灯的控制权。通常要求程序中最好在<code>except KeyboardInterrupt:</code>中添加这一行，防止程序意外退出后，电机依旧处于工作状态。</li>
+</ol>
+<p><code>LEGO-Motor_Encoder.py</code>比较简单，只要用手转动相应的电机就能看到旋转角度的变化着，注意角度区分正负。运行<code>LEGO-Motor_Status.py</code>，如果只是徒手旋转电机，则只会看到Encoder和DPS的变化，电机本身没收到power信号，所以power的状态一直为-128。</p>
+<p>用SimpleBot的配置运行<code>LEGO-Motor_Power.py</code>，转动<code>PORT_C</code>的轮胎，可以看到<code>PORT_D</code>的轮胎得到了相当于<code>PORT_C</code>轮胎Encoder度数1/10的Power，效果如图。</p>
+<figure>
+<img src="/2020/01/05/Lego+BrickPi机器人课程学习(三)：动力学和控制/power_raw.gif" alt><figcaption>Lego-Motor_Power.py</figcaption>
+</figure>
 <h1 id="lecture-2-习题课">Lecture 2 习题课</h1>
 
       
@@ -645,7 +678,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#双轮差速运动学基础"><span class="nav-number">1.</span> <span class="nav-text">双轮差速运动学基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#两轮模型"><span class="nav-number">1.1.1.</span> <span class="nav-text">两轮模型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pid控制"><span class="nav-number">2.</span> <span class="nav-text">PID控制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lego-motor的基本控制方法"><span class="nav-number">3.</span> <span class="nav-text">LEGO MOTOR的基本控制方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lecture-2-习题课"><span class="nav-number">4.</span> <span class="nav-text">Lecture 2 习题课</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#双轮差速运动学基础"><span class="nav-number">1.</span> <span class="nav-text">双轮差速运动学基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#两轮运动模型"><span class="nav-number">1.1.1.</span> <span class="nav-text">两轮运动模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三轮运动模型"><span class="nav-number">1.1.2.</span> <span class="nav-text">三轮运动模型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#电机和控制"><span class="nav-number">2.</span> <span class="nav-text">电机和控制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pwm概念"><span class="nav-number">2.1.</span> <span class="nav-text">PWM概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pid控制"><span class="nav-number">2.2.</span> <span class="nav-text">PID控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lego-motor的基本控制方法"><span class="nav-number">2.3.</span> <span class="nav-text">LEGO MOTOR的基本控制方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lecture-2-习题课"><span class="nav-number">3.</span> <span class="nav-text">Lecture 2 习题课</span></a></li></ol></div>
             
 
           </div>
