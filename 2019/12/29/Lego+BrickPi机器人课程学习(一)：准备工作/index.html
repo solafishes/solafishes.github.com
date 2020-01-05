@@ -448,23 +448,33 @@
         <p>年初的时候蛋总买了LEGO的第三代机器人平台MindStorm EV3，再一次激起了学习机器人相关知识的热情。目前我对于机器人的软硬件了解都非常有限，甚至基本的控制理论都不清楚，这在一个号称以黑科技为主导的机器人部门有点说不过去啊，虽然我们平时的工作是在大规模调度和供应链这个维度上的。另一方面，我们虽然想涉及优化理论在机器人控制、调度和识别中的应用，但是对于机器人基础的了解很少的情况下，这也就只能是想想。</p>
 <p>借着拿到EV3的契机，我就开始了短短续续的学习规划。本来考虑一方面学习LEGO的图形化编程一边拿着手里的Arduino学习一些控制方面的知识，但是由于今年事情很多，这两块都耽误了。其实还有其他原因，一方面，LEGO的编程模式太过入门化，就算按部就班进行下去对于机理方面也不会有太多的进展；另一方面，Arduino的编程要使用Processing语言，这是基于Java的一门语言，我又不是太想dive into Java，所以也就浅尝辄止了，但是我确实买了很多传感器和breadboard，也许之后会继续这条路吧。</p>
 <p>转机是我看到了帝国理工Andrew Davison教授的<a href="http://www.doc.ic.ac.uk/~ajd/Robotics/" target="_blank" rel="noopener">Robotics 333课程</a>。该课程使用了EV3作为机械和结构单元，但是控制端则放弃了EV3的控制器，而是使用了Dexter Industries的BrickPi 3平台。这个平台的好处在于它利用GPIO和Raspberry Pi进行通讯，后者通过python API编写控制代码，而我既对Python比较了解，又有两个富裕的二代的Raspberry Pi。Robotics 333这门课在网上开放了课程材料，所以综上种种，一条学习路径变得清晰了。</p>
-<p><img src="/2019/12/29/Lego+BrickPi机器人课程学习(一)：准备工作/BrickPi3-How-it-Works.jpg" alt="原理图"></p>
+<figure>
+<img src="/2019/12/29/Lego+BrickPi机器人课程学习(一)：准备工作/BrickPi3-How-it-Works.jpg" alt><figcaption>原理图</figcaption>
+</figure>
 <p>我希望这个学习的过程能做成一个专题，这一讲的话还是比较基础的housekeeping工作，先把需要准备的都准备了。</p>
 <a id="more"></a>
-<h1 id="设备采买"><a href="#设备采买" class="headerlink" title="设备采买"></a>设备采买</h1><p>不用说，肯定要有LEGO EV3，Raspberry Pi和BrickPi 3。EV3最好用31333套装，这样减少前期就需要添置基本块的需求。Raspberry Pi只要带WiFi模块就行，第二代以后的设备都能满足要求。BrickPi 3可以从官网和亚马逊买到，前者不送中国大陆，注意不要买到原始型号BrickPi+，后者感觉像是个半成品。小的部件方面，电池尽量多买(BrickPi的电池盒就需要8个1.2V的AA)，AA和AAA的充电电池，最好买松下的eneloop和充电盒套装；SD卡买1-2个，网线1根，螺丝工具1套等等。</p>
-<h1 id="设备准备"><a href="#设备准备" class="headerlink" title="设备准备"></a>设备准备</h1><p>333第二讲的时候就开始要使用机器人平台了，因此看完第一讲的课件我们就需要把设备搭建起来了。这里我们参考<a href="https://www.dexterindustries.com/brickpi3-tutorials-documentation/" target="_blank" rel="noopener">Dexster的Getting Started</a>教程。这个教程很细，但是排版和结构真的是很随意。</p>
-<h2 id="设备组装"><a href="#设备组装" class="headerlink" title="设备组装"></a>设备组装</h2><p>参照这个<a href="https://www.dexterindustries.com/BrickPi/brickpi3-getting-started-step-1-assembly/" target="_blank" rel="noopener">组装教程</a>进行，需要螺丝工具和些许手工技巧。最后得到的效果如图。</p>
-<p><img src="/2019/12/29/Lego+BrickPi机器人课程学习(一)：准备工作/assembled.jpg" alt="组装完成图"></p>
+<h1 id="设备采买">设备采买</h1>
+<p>不用说，肯定要有LEGO EV3，Raspberry Pi和BrickPi 3。EV3最好用31333套装，这样减少前期就需要添置基本块的需求。Raspberry Pi只要带WiFi模块就行，第二代以后的设备都能满足要求。BrickPi 3可以从官网和亚马逊买到，前者不送中国大陆，注意不要买到原始型号BrickPi+，后者感觉像是个半成品。小的部件方面，电池尽量多买(BrickPi的电池盒就需要8个1.2V的AA)，AA和AAA的充电电池，最好买松下的eneloop和充电盒套装；SD卡买1-2个，网线1根，螺丝工具1套等等。</p>
+<h1 id="设备准备">设备准备</h1>
+<p>333第二讲的时候就开始要使用机器人平台了，因此看完第一讲的课件我们就需要把设备搭建起来了。这里我们参考<a href="https://www.dexterindustries.com/brickpi3-tutorials-documentation/" target="_blank" rel="noopener">Dexster的Getting Started</a>教程。这个教程很细，但是排版和结构真的是很随意。</p>
+<h2 id="设备组装">设备组装</h2>
+<p>参照这个<a href="https://www.dexterindustries.com/BrickPi/brickpi3-getting-started-step-1-assembly/" target="_blank" rel="noopener">组装教程</a>进行，需要螺丝工具和些许手工技巧。最后得到的效果如图。</p>
+<figure>
+<img src="/2019/12/29/Lego+BrickPi机器人课程学习(一)：准备工作/assembled.jpg" alt><figcaption>组装完成图</figcaption>
+</figure>
 <p>一开始我不想用BrickPi提供的壳子，后来发现我的壳子太大，而且上面没有固定LEGO零件的孔，所以还是必须要换。注意电池组直接连到BrickPi,通过GPIO给Raspberry Pi供电。但是反着来（后者给前者供电）是不行的。</p>
-<h2 id="系统安装和设置"><a href="#系统安装和设置" class="headerlink" title="系统安装和设置"></a>系统安装和设置</h2><p>一开始我用了NOOB来安装系统，但是BrickPi在教程中提到了不支持经由NOOB安装的系统，我也确实遇到了后面ping不通的问题。因为我目前对这个问题还不清楚原因，所以保险起见我选择了Raspbian for Robots这个系统，安装和配置看<a href="https://www.dexterindustries.com/howto/install-raspbian-for-robots-image-on-an-sd-card/" target="_blank" rel="noopener">这个教程</a>。</p>
+<h2 id="系统安装和设置">系统安装和设置</h2>
+<p>一开始我用了NOOB来安装系统，但是BrickPi在教程中提到了不支持经由NOOB安装的系统，我也确实遇到了后面ping不通的问题。因为我目前对这个问题还不清楚原因，所以保险起见我选择了Raspbian for Robots这个系统，安装和配置看<a href="https://www.dexterindustries.com/howto/install-raspbian-for-robots-image-on-an-sd-card/" target="_blank" rel="noopener">这个教程</a>。</p>
 <p>安装后，将设备开关打开，和Mac间用网线连接，以测试电脑是不是能够连上BrickPi，这个可以参考<a href="https://www.dexterindustries.com/BrickPi/brickpi3-getting-started-step-2-connect-brickpi/brickpi3-getting-started-step-2-connect-brickpi-mac/" target="_blank" rel="noopener">这个教程</a>。我在这里提下几种在有线的环境下能够访问设备的方式：</p>
-<ol>
+<ol type="1">
 <li>直接SSH：<code>ssh pi@dex.local</code>，注意密码是robots1234（下同）。</li>
-<li>在浏览器中访问<a href="http://dex.local" target="_blank" rel="noopener">http://dex.local</a>，选择VNC，然后就能看到Raspberry的桌面。<img src="/2019/12/29/Lego+BrickPi机器人课程学习(一)：准备工作/dexlocal.png" alt="dexlocal">,能看到我的界面长这个样子。<img src="/2019/12/29/Lego+BrickPi机器人课程学习(一)：准备工作/mydex.png" alt="mydex"></li>
+<li>在浏览器中访问<a href="http://dex.local" class="uri" target="_blank" rel="noopener">http://dex.local</a>，选择VNC，然后就能看到Raspberry的桌面。<img src="/2019/12/29/Lego+BrickPi机器人课程学习(一)：准备工作/dexlocal.png" alt="dexlocal">,能看到我的界面长这个样子。<img src="/2019/12/29/Lego+BrickPi机器人课程学习(一)：准备工作/mydex.png" alt="mydex"></li>
 <li>通过teamviewer。</li>
 </ol>
-<h2 id="无线配置"><a href="#无线配置" class="headerlink" title="无线配置"></a>无线配置</h2><p>参考官网提供的无线配置方法，我的Raspberry Pi Model B不支持WiFi，所以之前已经在使用USB WiFi适配器了，所以直接拿掉网线在命令行输入<code>ping dex.local</code>就能够ping通。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>到此为止，Raspberry Pi和Brick Pi的准备工作已经完成了。下面我们将进行第一个机器人的组装。</p>
+<h2 id="无线配置">无线配置</h2>
+<p>参考官网提供的无线配置方法，我的Raspberry Pi Model B不支持WiFi，所以之前已经在使用USB WiFi适配器了，所以直接拿掉网线在命令行输入<code>ping dex.local</code>就能够ping通。</p>
+<h1 id="总结">总结</h1>
+<p>到此为止，Raspberry Pi和Brick Pi的准备工作已经完成了。下面我们将进行第一个机器人的组装。</p>
 
       
     </div>
@@ -584,7 +594,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -835,6 +845,53 @@
   
 
   
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
 
   
 
