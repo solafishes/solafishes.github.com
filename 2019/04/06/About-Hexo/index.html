@@ -106,7 +106,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/04/06/About-Hexo/GitHub-X-Hexo.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/04/06/About-Hexo/tags.jpg">
-<meta property="og:updated_time" content="2020-01-05T06:37:43.670Z">
+<meta property="og:updated_time" content="2020-01-05T06:57:39.537Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="How to Hexo">
 <meta name="twitter:description" content="# 前言 该博客使用Hexo创建在我的GitHub上，这篇HOWTO的目的是作为一个参考帖，可以在需要参考相关内容的时候得到解答。因此，这篇文章的内容也会不断更新。">
@@ -391,7 +391,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-05 14:37:43" itemprop="dateModified" datetime="2020-01-05T14:37:43+08:00">2020-01-05</time>
+                <time title="Modified: 2020-01-05 14:57:39" itemprop="dateModified" datetime="2020-01-05T14:57:39+08:00">2020-01-05</time>
               
             
           </span>
@@ -495,7 +495,10 @@
 <li>在文章的 <code>front-matter</code> 中添加 <code>description</code>，并提供文章摘录。</li>
 <li>在NEXT主题配置文件中添加auto excerpt信息，不推荐使用：</li>
 </ol>
-<p><code>auto_excerpt:   enable: true   length: 150</code> # 数学公式 <span class="math display">\[\begin{equation}
+<p><code>auto_excerpt:   enable: true   length: 150</code></p>
+<h1 id="数学公式">数学公式</h1>
+<p>参考<a href="https://github.com/theme-next/hexo-theme-next/blob/master/docs/MATH.md" target="_blank" rel="noopener">官方的说明</a>，注意一定要确保电脑上首先已经安装了Pandoc，没有安装的话在Mac上运行：<code>brew install Pandoc</code>。注意如果要引用公式，则必须使用<code>{equation}</code>环境，通过<code>$\eqref{eq1}$</code>命令inline引用公式，例如对下面公式<span class="math inline">\(\eqref{eq1}\)</span>的引用。</p>
+<p><span class="math display">\[\begin{equation}
 \begin{aligned}
 a &amp;= b + c \\
   &amp;= d + e + f + g \\
@@ -505,7 +508,6 @@ a &amp;= b + c \\
 <p><span class="math display">\[\begin{equation}
 e=mc^2
 \end{equation}\label{eq1}\]</span></p>
-<p>引用公式<span class="math inline">\(\eqref{eq1}\)</span></p>
 <h1 id="尾言">尾言</h1>
 <p>本文介绍了使用Hexo建博客的基本内容，涉及到主题的修改和其他个性化设置，需要的时候会在后续文章介绍。</p>
 
@@ -711,7 +713,7 @@ e=mc^2
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装git"><span class="nav-number">1.</span> <span class="nav-text">安装Git</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#github创建个人仓库"><span class="nav-number">2.</span> <span class="nav-text">GitHub创建个人仓库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装node.js"><span class="nav-number">3.</span> <span class="nav-text">安装Node.js</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装hexo"><span class="nav-number">4.</span> <span class="nav-text">安装Hexo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#推送网站"><span class="nav-number">5.</span> <span class="nav-text">推送网站</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于tags和categories"><span class="nav-number">6.</span> <span class="nav-text">关于tags和categories</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建页面"><span class="nav-number">6.1.</span> <span class="nav-text">创建页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文档处理"><span class="nav-number">6.2.</span> <span class="nav-text">文档处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分类层级"><span class="nav-number">6.3.</span> <span class="nav-text">分类层级</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文章折叠"><span class="nav-number">7.</span> <span class="nav-text">文章折叠</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#尾言"><span class="nav-number">8.</span> <span class="nav-text">尾言</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装git"><span class="nav-number">1.</span> <span class="nav-text">安装Git</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#github创建个人仓库"><span class="nav-number">2.</span> <span class="nav-text">GitHub创建个人仓库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装node.js"><span class="nav-number">3.</span> <span class="nav-text">安装Node.js</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装hexo"><span class="nav-number">4.</span> <span class="nav-text">安装Hexo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#推送网站"><span class="nav-number">5.</span> <span class="nav-text">推送网站</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于tags和categories"><span class="nav-number">6.</span> <span class="nav-text">关于tags和categories</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建页面"><span class="nav-number">6.1.</span> <span class="nav-text">创建页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文档处理"><span class="nav-number">6.2.</span> <span class="nav-text">文档处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分类层级"><span class="nav-number">6.3.</span> <span class="nav-text">分类层级</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文章折叠"><span class="nav-number">7.</span> <span class="nav-text">文章折叠</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数学公式"><span class="nav-number">8.</span> <span class="nav-text">数学公式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#尾言"><span class="nav-number">9.</span> <span class="nav-text">尾言</span></a></li></ol></div>
             
 
           </div>
