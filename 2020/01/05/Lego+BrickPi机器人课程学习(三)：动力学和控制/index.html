@@ -107,7 +107,7 @@
 <meta property="og:image" content="http://yoursite.com/2020/01/05/Lego+BrickPi机器人课程学习(三)：动力学和控制/dual_wheel_circular.png">
 <meta property="og:image" content="http://yoursite.com/2020/01/05/Lego+BrickPi机器人课程学习(三)：动力学和控制/tri_wheel_circular.png">
 <meta property="og:image" content="http://yoursite.com/2020/01/05/Lego+BrickPi机器人课程学习(三)：动力学和控制/power_raw.gif">
-<meta property="og:updated_time" content="2020-01-05T14:00:13.493Z">
+<meta property="og:updated_time" content="2020-01-07T14:45:30.096Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lego+BrickPi机器人课程学习(三)：动力学和控制">
 <meta name="twitter:description" content="从这一次开始我们将主要根据Robotics 333的课件来进行相关实践了。这一讲是针对Lecture 2的运动学和控制，以及习题课。虽然不会照着课件全都写一遍，但是会将重点的公式和推倒拿过来，后面实践的时候用得到。 双轮差速运动学基础 概念 平面机器人有3个自由度，两个平移，一个旋转（空间机器人有6个），能够同时独立进行这三个自由度运动的是Holonomic Robot，使用麦克纳姆轮系。一般的平">
@@ -375,12 +375,24 @@
                 
               
 
-              <time title="Created: 2020-01-05 13:32:01 / Modified: 22:00:13" itemprop="dateCreated datePublished" datetime="2020-01-05T13:32:01+08:00">2020-01-05</time>
+              <time title="Created: 2020-01-05 13:32:01" itemprop="dateCreated datePublished" datetime="2020-01-05T13:32:01+08:00">2020-01-05</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-07 22:45:30" itemprop="dateModified" datetime="2020-01-07T22:45:30+08:00">2020-01-07</time>
               
             
           </span>
@@ -478,6 +490,7 @@
 <figure>
 <img src="/2020/01/05/Lego+BrickPi机器人课程学习(三)：动力学和控制/power_raw.gif" alt><figcaption>Lego-Motor_Power.py</figcaption>
 </figure>
+<p><code>LEGO-Motor_Position.py</code>徒手转动一个电机并实时记录该电机转数，并通过<code>set_motor_position</code>设置给另一个电机，使得该电机通过PID控制跟随徒手转动电机的转数。需要注意，当调低电机的转速和信号阈值后，电机跟随转动的lag变大。</p>
 <h1 id="lecture-2-习题课">Lecture 2 习题课</h1>
 
       
